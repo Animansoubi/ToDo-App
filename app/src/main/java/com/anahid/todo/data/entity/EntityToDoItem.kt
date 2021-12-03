@@ -15,6 +15,9 @@ data class EntityToDoItem(
     @ColumnInfo(name = "description")
     val description: String,
 
+    @ColumnInfo(name = "priority")
+    val priority: String,
+
     @ColumnInfo(name = "is_done")
     val isDone: Int,
 )

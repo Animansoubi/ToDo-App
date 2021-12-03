@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anahid.todo.databinding.ListItemTaskBinding
-import com.anahid.todo.domain.model.ModelToDoItem
+import com.anahid.todo.domain.model.ToDoTaskModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class TaskAdapter(private val context: Context) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter @Inject constructor(@ApplicationContext private val context: Context) :
+    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     private val li = LayoutInflater.from(context)
-    private val items: MutableList<ModelToDoItem> = mutableListOf()
+    private val taskModels: MutableList<ToDoTaskModel> = mutableListOf()
 
-    fun setItems(items: List<ModelToDoItem>) {
-        this.items.clear()
-        this.items.addAll(items)
+    fun setItems(taskModels: List<ToDoTaskModel>) {
+        this.taskModels.clear()
+        this.taskModels.addAll(taskModels)
         notifyDataSetChanged()
     }
 
@@ -23,18 +26,18 @@ class TaskAdapter(private val context: Context) : RecyclerView.Adapter<TaskAdapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(taskModels[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = taskModels.size
 
     inner class ViewHolder(private val binding: ListItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(modelToDoItem: ModelToDoItem) {
-            binding.txtTitle.text = modelToDoItem.title
-            binding.txtDescription.text = modelToDoItem.description
-            binding.checkboxIsDone.isChecked = modelToDoItem.isDone
+        fun bind(toDoTaskModel: ToDoTaskModel) {
+            binding.txtTitle.text = toDoTaskModel.title
+            binding.txtDescription.text = toDoTaskModel.description
+            binding.checkboxIsDone.isChecked = toDoTaskModel.isDone
             binding.root.setOnClickListener {
             }
         }
