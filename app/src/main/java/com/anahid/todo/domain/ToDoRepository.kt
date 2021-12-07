@@ -4,8 +4,9 @@ import com.anahid.todo.data.ToDoDao
 import com.anahid.todo.domain.map.ToDoMapper.toEntity
 import com.anahid.todo.domain.map.ToDoMapper.toModel
 import com.anahid.todo.domain.model.ToDoTaskModel
+import javax.inject.Inject
 
-class ToDoRepository(private val toDoDao: ToDoDao) {
+class ToDoRepository @Inject constructor(private val toDoDao: ToDoDao) {
 
     private val cache: MutableList<ToDoTaskModel> = mutableListOf()
 
